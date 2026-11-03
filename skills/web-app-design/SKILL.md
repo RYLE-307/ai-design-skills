@@ -27,6 +27,7 @@ Choose the least complex structure that supports that loop:
 - Reuse an existing shell. For a new one, choose sidebar, top navigation or a focused layout based on section count, density and device use; none is mandatory.
 - Put page title, scope, local controls and the primary action in a stable hierarchy. Keep global controls from competing with record actions.
 - Represent shareable object/filter state in the URL when useful, without secrets. Browser back should restore a useful context. Preserve local drafts independently of transient filters.
+- Test details opened from a list and from a direct URL or reload. A local “Back to list” action must have an in-app fallback retaining the available filters when no list history entry exists; do not call browser back unconditionally. Restore focus to the originating record, or a stable list control if that record is absent.
 
 ## Working behavior
 

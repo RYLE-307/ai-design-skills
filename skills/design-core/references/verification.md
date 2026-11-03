@@ -11,6 +11,7 @@ Target WCAG 2.2 AA for web work unless the project specifies a stronger target. 
 - Text contrast: 4.5:1 normally; 3:1 for large text (24 CSS px, or about 18.67px bold). Essential control boundaries and state indicators need 3:1 against adjacent colors. Convey state beyond color.
 - Targets meet the 24×24 CSS px AA size/spacing criterion or a documented exception. Prefer around 44×44 for touch comfort. A compact table still needs usable controls.
 - Reflow at 320 CSS px and 200% text resize; no clipping or missing actions. Contain necessary table/canvas scrolling. Provide alternatives to drag-only operations.
+- Check text enlargement separately from viewport resizing: navigation, logos, long headings and action groups can overflow at 200% even when all standard widths pass. Record whether the check used browser text settings, an equivalent test harness or full-page zoom; these are different tests. Fix wrapping and intrinsic minimum widths rather than hiding page overflow.
 - Associate errors and hints with fields; expose status messages without over-announcing. Allow paste and password managers in authentication. Avoid unnecessary repeated entry.
 - Respect reduced motion. Check that disabled animations or failed scripts do not leave meaningful content invisible.
 
