@@ -1,105 +1,154 @@
 # AI Design Skills
 
-[![skills.sh](https://skills.sh/b/elayadesign/ai-design-skills)](https://skills.sh/elayadesign/ai-design-skills)
+Модульный AI-дизайнер для лендингов, SaaS-приложений, аналитики, админок и рабочих интерфейсов. Форк [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) для [RYLE-307](https://github.com/RYLE-307/ai-design-skills).
 
-A growing collection of design skills for AI coding tools — Claude Code, Cursor, Codex, Windsurf, and anything else that reads a markdown rules file.
+Вы описываете задачу обычным языком. Агент выбирает подходящие Skills, учитывает существующий проект, реализует основной сценарий и проверяет результат. Skills — инструкции для coding-agent; они не являются UI-библиотекой и не подключают backend автоматически.
 
-Each skill is a self-contained folder. Install the ones you need.
+## Состав
 
----
-
-## Skills
-
-| Skill | What it does |
+| Skill | Ответственность |
 |---|---|
-| [`landing-page-design`](./skills/landing-page-design/SKILL.md) | Builds a landing page from scratch — intake questions, page structure, conversion copy, plus a full visual system (type, spacing, radius, motion) |
-| [`figma-designer`](./skills/figma-designer/SKILL.md) | Designs inside Figma with real structure: spacing, radius and color variables, named text styles, auto layout, components with every state, and a Foundations frame that updates with the tokens |
+| [design-router](skills/design-router/SKILL.md) | Выбор минимального набора Skills по задаче |
+| [design-core](skills/design-core/SKILL.md) | UX, визуальное направление, accessibility, responsive, состояния, качество реализации |
+| [landing-page-design](skills/landing-page-design/SKILL.md) | Предложение, аудитория, структура, текст и конверсионный путь публичной страницы |
+| [web-app-design](skills/web-app-design/SKILL.md) | Рабочие сценарии, навигация, редакторы, список и детали |
+| [dashboard-design](skills/dashboard-design/SKILL.md) | Значение метрик, графики, сравнения, фильтры и детализация |
+| [admin-panel-design](skills/admin-panel-design/SKILL.md) | Управление ресурсами, роли, опасные действия и аудит |
+| [forms-settings](skills/forms-settings/SKILL.md) | Ввод, валидация, сохранение, настройки и восстановление после ошибки |
+| [data-table-design](skills/data-table-design/SKILL.md) | Таблицы, сортировка, поиск, пагинация, выделение и массовые операции |
+| [monitoring-ui](skills/monitoring-ui/SKILL.md) | Здоровье сервисов, инциденты, свежесть данных, live-логи и реакции оператора |
 
-More on the way. [Upgrading an existing site instead of building new?](https://github.com/elayadesign/redesign-skill) That one lives in its own repo since it predates this collection.
+Исходный [figma-designer](skills/figma-designer/SKILL.md) сохранён отдельно без изменения инструкций. Это специализированный Figma-workflow с исходным фиксированным стилем и зависимостями от Figma-инструментов. Он не входит в стандартную установку веб-набора и не загружается веб-роутером.
 
-<a href="https://slopscan.co"><img src="./assets/slopscan-banner.png" alt="SlopScan: audit your existing site. Checks a live page against these same rules and hands your agent a fix prompt." width="100%"></a>
+## Быстрый старт
 
----
+Откройте локальную копию **этой ветки**. Нужен Python 3.10+; установщик использует только стандартную библиотеку. В командах `python` можно заменить на `python3` (macOS/Linux) или `py` (Windows). Путь проекта должен существовать.
 
-## Install
-
-Uses the [skills CLI](https://skills.sh). Needs Node.js.
-
-```bash
-npx skills add elayadesign/ai-design-skills
-```
-
-It lists the skills in this repo and asks which ones to install and for which agents. Add flags to skip the prompts:
-
-```bash
-# one skill
-npx skills add elayadesign/ai-design-skills --skill landing-page-design
-
-# pick agents
-npx skills add elayadesign/ai-design-skills -a claude-code -a cursor
-
-# user-level instead of project-level
-npx skills add elayadesign/ai-design-skills -g
-
-# see what's available without installing
-npx skills add elayadesign/ai-design-skills --list
-```
-
-Add `-y` to skip confirmations. Skills land in `.claude/skills/` for Claude Code and `.agents/skills/` for Cursor, Codex and other agents. Run `npx skills update` later to pull changes.
-
-Then just ask, in plain language, for what the skill covers.
-
-<details>
-<summary><b>Manual install</b></summary>
-
-Claude Code:
+Из корня этого репозитория выполните одну команду для своего агента:
 
 ```bash
-mkdir -p .claude/skills
-git clone https://github.com/elayadesign/ai-design-skills.git /tmp/ai-design-skills
-cp -r /tmp/ai-design-skills/skills/<skill-name> .claude/skills/
+# Codex
+python scripts/install_skills.py --project "C:/projects/my-saas" --agent codex --with-router-rule
+
+# Claude Code
+python scripts/install_skills.py --project "C:/projects/my-saas" --agent claude-code --with-router-rule
+
+# Cursor
+python scripts/install_skills.py --project "C:/projects/my-saas" --agent cursor --with-router-rule
 ```
 
-Cursor:
+На macOS/Linux используйте путь вроде `/home/me/projects/my-saas`. Для нескольких агентов повторите `--agent`; Codex и Cursor используют одну общую копию. Из другого каталога укажите полный путь к `scripts/install_skills.py`.
+
+Установщик копирует девять Skills вместе с references и лицензиями. Одинаковые файлы пропускает, отличающиеся **не перезаписывает**: сначала проверяет весь план и сообщает о конфликте. Он не устанавливает зависимости приложения, не меняет код и не отправляет ничего в GitHub.
+
+| Агент | Куда попадают Skills | Что добавляет `--with-router-rule` |
+|---|---|---|
+| Codex | `.agents/skills/` | Короткий отмеченный блок в `AGENTS.md`, с сохранением существующего текста |
+| Claude Code | `.claude/skills/` | Отдельный `.claude/rules/ai-design-routing.md` |
+| Cursor | `.agents/skills/` | Отдельный `.cursor/rules/ai-design-routing.mdc` |
+
+Без флага правила проекта не меняются: остаётся штатный автоматический выбор по описаниям Skills. С флагом агент получает короткую инструкцию обращаться к роутеру для веб-UI; backend-задачи исключены. Ни один вариант не превращает выбор модели в гарантированный программный классификатор.
+
+После установки начните новый чат агента в целевом проекте. Проверьте обнаружение:
+
+```text
+Покажи доступные design Skills и выбери маршрут для экрана запусков автоматизаций.
+Пока не меняй код.
+```
+
+Ожидается `design-core + web-app-design + data-table-design`. Если автоматический выбор не сработал, вызовите `$design-router` в Codex или `/design-router` в Claude Code/Cursor. Если Skill не виден, проверьте каталог проекта, поддержку Skills вашей версией агента и ограничения организации.
+
+Пути и способы вызова сверены с [документацией Codex](https://developers.openai.com/codex/skills), [Claude Code](https://code.claude.com/docs/en/skills) и [Cursor](https://cursor.com/docs/skills) 3 ноября 2026 года. Правила проекта: [Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md), [Claude rules](https://code.claude.com/docs/en/memory), [Cursor rules](https://cursor.com/docs/rules). Локальная установка не означает автоматическую синхронизацию в облачные агенты; проверьте настройки конкретного продукта.
+
+### Ручная установка
+
+Скопируйте целиком девять папок из таблицы в один соответствующий каталог Skills. Не копируйте один `SKILL.md`: соседние модули и `references/` нужны по относительным ссылкам. Сохраните `LICENSE.txt`. Для выборочной установки core обязателен; остальные используемые зависимости должны оставаться соседними папками. Полный набор проще и почти не увеличивает контекст: содержимое читается по необходимости.
+
+Не устанавливайте одинаковые Skills одновременно в несколько обнаруживаемых каталогов одного агента. Не вставляйте весь набор в `AGENTS.md` или `.cursorrules`: это убирает выборочную загрузку и создаёт конкурирующие правила.
+
+### Обновление и удаление
+
+Перед обновлением сравните новые и установленные файлы, сохраните локальные изменения. Установщик намеренно не имеет принудительного перезаписывания: после осознанного объединения изменений повторный запуск подтвердит совпадение. Для чистого обновления перенесите старые девять папок в резервную копию **вне каталогов обнаружения Skills**, затем установите новую версию. Не удаляйте чужие Skills.
+
+Для удаления уберите только установленные папки и отдельные routing-файлы. В `AGENTS.md` удалите только блок между `ai-design-skills:start` и `ai-design-skills:end`; сохраните остальной текст. Установки для разных агентов могут использовать общую `.agents/skills/`.
+
+## Как комбинируются правила
+
+```text
+Задача → design-router → design-core один раз → нужные специализации → реализация и проверка
+```
+
+У каждого слоя одна ответственность. Core хранит общие требования, специалисты — свои решения, роутер — критерии выбора. Специалисты не вызывают роутер обратно. [DESIGN_ROUTER.md](DESIGN_ROUTER.md) ведёт к единственному источнику правил.
+
+Пользовательские требования и инструкции проекта имеют приоритет. Существующий бренд сохраняется. Специализация уточняет паттерн, но не отменяет доступность или восстановление после ошибок. Лендинг не диктует рабочему экрану hero, FAQ и анимации.
+
+## Разные проекты — разный дизайн
+
+Новый проект получает осмысленное визуальное направление: типографику, плотность, композицию, поверхности, цветовые роли и характер движения. Примеры направлений и краткая форма решения находятся в [visual-direction.md](skills/design-core/references/visual-direction.md).
+
+Нет обязательного шрифта, тёмной темы, карточной сетки или одинакового sidebar. Различия должны следовать аудитории и задаче, а не случайному выбору цвета. Внутри одного продукта стиль остаётся последовательным. Исходный стиль лендинга доступен как [необязательное направление](skills/landing-page-design/references/upstream-slate.md).
+
+## Примеры запросов
+
+```text
+Сделай публичный лендинг SaaS для планирования смен в небольших студиях.
+Тёплый редакционный стиль, основной CTA — запросить демо.
+Не придумывай клиентов, тарифы и отзывы. Используй существующий стек.
+```
+
+```text
+Сделай рабочий экран запусков автоматизаций: поиск, статусы, таблица,
+детали запуска и повтор неудачного запуска. Плотный светлый интерфейс
+для разработчиков. Сохрани фильтры при переходе в детали и обратно.
+```
+
+```text
+Улучши управление участниками: роли, приглашения, выбор нескольких
+пользователей и отзыв доступа. Учти ограничения последнего владельца.
+```
+
+```text
+Построй аналитику удержания по когортам: явные периоды, определения
+метрик, пропуски данных и детализация. Не меняй существующую навигацию.
+```
+
+```text
+Добавь настройки уведомлений с сохранением, ошибкой сервера и возвратом
+к несохранённым изменениям. Остальной экран оставь в текущем стиле.
+```
+
+```text
+Сделай мониторинг сервисов с инцидентами и live-логами. Покажи устаревшие
+данные и потерю соединения. Пауза лога не должна сбрасывать позицию чтения.
+```
+
+## Проверка качества
+
+Два воспроизводимых задания: [SaaS-лендинг](examples/saas-landing.md) и [рабочий SaaS-экран](examples/saas-workspace.md). Дополнительные маршруты, негативные кейсы и порядок оценки: [evaluation.md](docs/evaluation.md). Для рабочего экрана приложена [демо-выборка](examples/fixtures/workflow-runs.json).
+
+Выполнен сопровождаемый браузерный прогон обоих заданий: [отчёт и ограничения](docs/UI_VALIDATION.md), [запускаемые UI-примеры](examples/ui/README.md). Проверены основные действия, ошибки, клавиатура и размеры 320/390/768/1440 px; исправлены прямой возврат из деталей, переполнение при увеличении текста и контраст полей. Этот прогон не подтверждает автоматическое обнаружение Skills в новых сессиях трёх агентов.
+
+Простые критерии: понятная главная задача, работающие действия, нужные состояния и восстановление, клавиатура и контраст, адаптивность, осмысленный стиль и проверенная реализация. [Рубрика](skills/design-core/references/verification.md) оценивает шесть измерений по 0–2; ориентир — 10/12 без нулей и критических блокеров. Это внутренняя оценка, не сертификат WCAG.
+
+Проверка самого репозитория:
 
 ```bash
-mkdir -p .cursor/rules
-curl -o .cursor/rules/<skill-name>.md \
-  https://raw.githubusercontent.com/elayadesign/ai-design-skills/main/skills/<skill-name>/SKILL.md
+python -m pip install -r requirements-dev.txt
+python -m unittest discover tests -v
+python scripts/validate_skills.py skills
+python scripts/validate_bundle.py skills
 ```
 
-Or paste the file into **Settings → Rules for AI**.
+CI запускает эти проверки для PR и push в main. Они проверяют формат Skills, ссылки, переносимость установки и защиту существующих файлов. Качество сгенерированного UI и реальный автовыбор требуют отдельных запусков сценариев в агентах. Фактически выполненные проверки и ограничения указаны в [VALIDATION.md](docs/VALIDATION.md).
 
-Codex, Windsurf, other: copy the skill's `SKILL.md` into your tool's rules file.
+## Что изменено относительно оригинала
 
-| Tool | Path |
-|---|---|
-| Codex | `AGENTS.md` |
-| Windsurf | `.windsurfrules` |
-| Cline | `.clinerules` |
-| Generic | paste into your system prompt |
-</details>
+Сохранены подход лендинга «сначала стратегия», варианты структуры, работа с доказательствами, текстом, SEO и последовательной реализацией. Общие правила вынесены в core; добавлены рабочие интерфейсы и роутинг. Обязательные эстетические ограничения заменены проектным выбором. Подробнее: [CHANGE_SUMMARY.md](docs/CHANGE_SUMMARY.md).
 
-<details>
-<summary><b>Claude.ai (no terminal)</b></summary>
+Исходные [README](docs/upstream/README.md) и [landing-page-design](docs/upstream/landing-page-design.md) сохранены как архив, а не действующие инструкции. Архив фиксирует состояние базового коммита `456d9e0d3e2d84c748bb143c6ca3d90c45e16213`; старые команды установки и правила из архива не относятся к новому набору.
 
-Download the skill's `SKILL.md` and upload it to a Project, or attach it to a chat and say *"follow this."*
-</details>
+## Авторство и лицензия
 
----
+Оригинал — Elaya, [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills). В исходном лендинге использованы идеи [taste-skill](https://github.com/Leonxlnx/taste-skill) Leon Lin; сохранены эти credits и упоминание вклада [@allen-baler](https://github.com/elayadesign/ai-design-skills/pull/1).
 
-## Make it yours
-
-Every skill's design values (fonts, colors, spacing, motion) live in one section near the bottom of its file. Fork this repo, edit that section, and the rest of the skill follows automatically.
-
----
-
-## Credits
-
-`landing-page-design` adapts content realism and motion ideas from [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) by Leon Lin, MIT licensed. Details are at the end of [its SKILL.md](./skills/landing-page-design/SKILL.md#credits).
-
----
-
-## License
-
-MIT. Use it, fork it, ship it, sell what you build with it. No attribution needed.
+[MIT LICENSE](LICENSE) сохранена без изменений. При распространении копий или существенных частей сохраняйте copyright и текст разрешения. Исходная фраза «No attribution needed» не отменяет это условие. Все уведомления: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md); копии лицензий включены в папки Skills.

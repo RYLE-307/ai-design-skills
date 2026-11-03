@@ -1,0 +1,294 @@
+[
+  {
+    "name": "landing.invalid-email",
+    "pass": true,
+    "detail": "aria-invalid=true; focus=email; associated error"
+  },
+  {
+    "name": "landing.error-preserves-input",
+    "pass": true,
+    "detail": "Не удалось отправить демо-заявку. Данные сохранены. Выберите «Успех» и повторите. Поля подтверждены визуально; DOM-инструмент редактирует email."
+  },
+  {
+    "name": "landing.pending-disables-submit",
+    "pass": true
+  },
+  {
+    "name": "landing.retry-success",
+    "pass": true
+  },
+  {
+    "name": "landing.focus-restored",
+    "pass": true
+  },
+  {
+    "name": "landing.reflow-768",
+    "pass": true,
+    "detail": {
+      "scroll": 753,
+      "viewport": 768
+    }
+  },
+  {
+    "name": "landing.reflow-390",
+    "pass": true,
+    "detail": {
+      "scroll": 375,
+      "viewport": 390
+    }
+  },
+  {
+    "name": "landing.reflow-320",
+    "pass": true,
+    "detail": {
+      "scroll": 305,
+      "viewport": 320
+    }
+  },
+  {
+    "name": "landing.mobile-menu",
+    "pass": true
+  },
+  {
+    "name": "landing.menu-escape-focus",
+    "pass": true
+  },
+  {
+    "name": "workspace.initial-loading",
+    "pass": true,
+    "detail": "Observed loading region and disabled pagination"
+  },
+  {
+    "name": "workspace.find-failure",
+    "pass": true
+  },
+  {
+    "name": "workspace.detail-return-context",
+    "pass": true,
+    "detail": {
+      "focus": "run-1042",
+      "page": "1 / 1",
+      "query": "run-1042"
+    }
+  },
+  {
+    "name": "workspace.retry-rejection",
+    "pass": true,
+    "detail": "Создано: 0. Отказов: 1 (run-1042). Повторите только неудачные."
+  },
+  {
+    "name": "workspace.pending-lock",
+    "pass": true
+  },
+  {
+    "name": "workspace.single-new-id",
+    "pass": true,
+    "detail": "Создано: 1 (run-2001). Отказов: 0. Исходные записи сохранены."
+  },
+  {
+    "name": "workspace.original-failed-kept",
+    "pass": true
+  },
+  {
+    "name": "workspace.new-queued-record",
+    "pass": true
+  },
+  {
+    "name": "workspace.cross-page-selection",
+    "pass": true
+  },
+  {
+    "name": "workspace.partial-failure",
+    "pass": true,
+    "detail": "Создано: 1 (run-2002). Отказов: 1 (run-1045). Повторите только неудачные."
+  },
+  {
+    "name": "workspace.retry-only-failed",
+    "pass": true,
+    "detail": "Создано: 1 (run-2003). Отказов: 0. Исходные записи сохранены."
+  },
+  {
+    "name": "workspace.filter-clears-selection",
+    "pass": true
+  },
+  {
+    "name": "workspace.keyboard-sort",
+    "pass": true
+  },
+  {
+    "name": "workspace.readonly-ui",
+    "pass": true
+  },
+  {
+    "name": "workspace.no-results",
+    "pass": true
+  },
+  {
+    "name": "workspace.empty-distinct",
+    "pass": true
+  },
+  {
+    "name": "workspace.load-error-retry",
+    "pass": true
+  },
+  {
+    "name": "workspace.page-clamp",
+    "pass": true
+  },
+  {
+    "name": "workspace.reflow-1440",
+    "pass": true,
+    "detail": {
+      "scroll": 1425,
+      "viewport": 1440
+    }
+  },
+  {
+    "name": "workspace.reflow-768",
+    "pass": true,
+    "detail": {
+      "scroll": 753,
+      "viewport": 768
+    }
+  },
+  {
+    "name": "workspace.reflow-390",
+    "pass": true,
+    "detail": {
+      "scroll": 375,
+      "viewport": 390
+    }
+  },
+  {
+    "name": "workspace.reflow-320",
+    "pass": true,
+    "detail": {
+      "scroll": 305,
+      "viewport": 320
+    }
+  },
+  {
+    "name": "workspace.mobile-long-detail",
+    "pass": true
+  },
+  {
+    "name": "workspace.deep-link-close-baseline",
+    "pass": false,
+    "detail": "Observed about:blank; fixed afterwards"
+  },
+  {
+    "name": "workspace.deep-link-close-fixed",
+    "pass": true
+  },
+  {
+    "name": "workspace.deep-link-reload-fixed",
+    "pass": true
+  },
+  {
+    "name": "landing.text200-baseline",
+    "pass": false,
+    "detail": "768px: scrollWidth 928 > clientWidth 753; navigation overflows. Also overflow at 320px."
+  },
+  {
+    "name": "workspace.text200-baseline",
+    "pass": true,
+    "detail": {
+      "font": "32px",
+      "scroll": 753,
+      "width": 753
+    }
+  },
+  {
+    "name": "landing.text200-fixed-768",
+    "pass": true,
+    "detail": {
+      "font": "32px",
+      "scroll": 753,
+      "width": 753
+    }
+  },
+  {
+    "name": "landing.text200-fixed-320",
+    "pass": false,
+    "detail": {
+      "font": "32px",
+      "scroll": 310,
+      "width": 290
+    }
+  },
+  {
+    "name": "workspace.text200-fixed-768",
+    "pass": true,
+    "detail": {
+      "font": "32px",
+      "scroll": 753,
+      "width": 753
+    }
+  },
+  {
+    "name": "workspace.text200-fixed-320",
+    "pass": true,
+    "detail": {
+      "font": "32px",
+      "scroll": 290,
+      "width": 290
+    }
+  },
+  {
+    "name": "landing.text200-final-320",
+    "pass": true,
+    "detail": {
+      "font": "32px",
+      "scroll": 290,
+      "width": 290
+    }
+  },
+  {
+    "name": "landing.dialog-text200",
+    "pass": true,
+    "detail": {
+      "scroll": 203,
+      "width": 203
+    }
+  },
+  {
+    "name": "workspace.readonly-rechecked-by-mock",
+    "pass": true,
+    "detail": "Создано: 0. Отказов: 1 (run-1042). Повторите только неудачные."
+  },
+  {
+    "name": "workspace.dialog-keyboard-tab",
+    "pass": true
+  },
+  {
+    "name": "workspace.dialog-keyboard-trap",
+    "pass": false
+  },
+  {
+    "name": "landing.reflow-final-1440",
+    "pass": true
+  },
+  {
+    "name": "workspace.dialog-keyboard-trap-fixed",
+    "pass": false
+  },
+  {
+    "name": "workspace.dialog-reverse-trap-fixed",
+    "pass": false
+  },
+  {
+    "name": "workspace.no-browser-errors",
+    "pass": false,
+    "detail": "Observed MutationObserver TypeError without source URL in browser tooling; application has no MutationObserver. Source not attributed; no zero-error claim."
+  },
+  {
+    "name": "workspace.dialog-keyboard-trap-final",
+    "pass": true,
+    "detail": "Verified after initial loading finished; AX focus=close"
+  },
+  {
+    "name": "workspace.dialog-reverse-trap-final",
+    "pass": true,
+    "detail": "Verified after initial loading finished"
+  }
+]
